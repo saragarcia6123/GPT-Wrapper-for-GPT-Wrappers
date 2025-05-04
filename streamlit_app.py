@@ -5,15 +5,19 @@ import json
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-instructions="You are a specialist vibe coder in creating ChatGPT Wrappers. Always stay on topic."
-
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 with open("models.json") as f:
-   data = json.load(f)
+   model_data = json.load(f)
 
-models = [model for model in data["models"]]
+models = [model for model in model_data["models"]]
+
+with open("instructions.json") as f:
+    instructions_data = json.load(f)
+
+instructions_list = [line for line in instructions_data['instructions']]
+instructions = ' '.join(instructions_list)
+print(instructions)
 
 import streamlit as st
 
